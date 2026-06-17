@@ -33,7 +33,7 @@ async function request<T>(
     headers,
   });
 
-  if (response.status === 401) {
+  if (response.status === 401 && !endpoint.startsWith('/auth/login') && !endpoint.startsWith('/auth/register')) {
     setToken(null);
     window.dispatchEvent(new Event('auth:logout'));
     throw new Error('Sesión expirada');
