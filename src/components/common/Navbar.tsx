@@ -39,7 +39,7 @@ export function Navbar() {
           <span className="text-sm text-gray-500">{user?.email}</span>
           <button
             onClick={handleLogout}
-            className="text-sm text-red-600 hover:text-red-800 font-medium"
+            className="text-sm text-red-600 hover:text-red-800 font-medium cursor-pointer"
           >
             Salir
           </button>

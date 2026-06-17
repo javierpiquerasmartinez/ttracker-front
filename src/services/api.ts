@@ -44,12 +44,18 @@ async function request<T>(
     throw new Error(error.message || `Error ${response.status}`);
   }
 
+  if (response.status === 204) return undefined as T;
+
   const contentType = response.headers.get('content-type');
   if (contentType?.includes('application/pdf')) {
     return response.blob() as unknown as T;
   }
+  if (contentType?.includes('application/json')) {
+    return response.json();
+  }
 
-  return response.json();
+  const text = await response.text();
+  return text ? JSON.parse(text) : undefined as T;
 }
 
 export const api = {

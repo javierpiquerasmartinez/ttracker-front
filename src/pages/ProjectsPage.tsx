@@ -51,7 +51,7 @@ export function ProjectsPage() {
         <h1 className="text-2xl font-bold text-gray-900">Proyectos</h1>
         <button
           onClick={() => setShowForm(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 cursor-pointer"
         >
           Crear Proyecto
         </button>
@@ -104,7 +104,7 @@ export function ProjectsPage() {
                   <td className="px-6 py-4 text-sm text-right">
                     <button
                       onClick={(e) => { e.stopPropagation(); navigate(`/projects/${p.id}`); }}
-                      className="text-blue-600 hover:text-blue-800 font-medium"
+                      className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
                     >
                       Ver
                     </button>

@@ -83,7 +83,7 @@ export function TimeRecordsPage() {
         <h1 className="text-2xl font-bold text-gray-900">Registros de Tiempo</h1>
         <button
           onClick={() => setShowManualForm(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 cursor-pointer"
         >
           + Registro Manual
         </button>
@@ -117,7 +117,7 @@ export function TimeRecordsPage() {
             <label className="block text-xs text-gray-500 mb-1">Buscar</label>
             <input type="text" placeholder="Descripción..." value={search} onChange={(e) => setSearch(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 w-40" />
           </div>
-          <button onClick={handleApplyFilters} className="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-900">
+          <button onClick={handleApplyFilters} className="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer">
             Filtrar
           </button>
         </div>
@@ -154,8 +154,8 @@ export function TimeRecordsPage() {
                     </td>
                     <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">{formatHours(r.duration_minutes)}</td>
                     <td className="px-4 py-3 text-sm text-right space-x-2">
-                      <button onClick={() => setEditingRecord(r)} className="text-blue-600 hover:text-blue-800">Editar</button>
-                      <button onClick={() => handleDelete(r)} className="text-red-600 hover:text-red-800">Eliminar</button>
+                      <button onClick={() => setEditingRecord(r)} className="text-blue-600 hover:text-blue-800 cursor-pointer">Editar</button>
+                      <button onClick={() => handleDelete(r)} className="text-red-600 hover:text-red-800 cursor-pointer">Eliminar</button>
                     </td>
                   </tr>
                 ))}
@@ -166,9 +166,9 @@ export function TimeRecordsPage() {
           <div className="flex items-center justify-between mt-4">
             <span className="text-sm text-gray-500">Total: {total} registros</span>
             <div className="flex gap-2">
-              <button disabled={page <= 1} onClick={() => loadRecords(page - 1)} className="px-3 py-1 text-sm border rounded hover:bg-gray-100 disabled:opacity-50">Anterior</button>
+              <button disabled={page <= 1} onClick={() => loadRecords(page - 1)} className="px-3 py-1 text-sm border rounded hover:bg-gray-100 disabled:opacity-50 cursor-pointer">Anterior</button>
               <span className="px-3 py-1 text-sm">{page}</span>
-              <button disabled={page * 20 >= total} onClick={() => loadRecords(page + 1)} className="px-3 py-1 text-sm border rounded hover:bg-gray-100 disabled:opacity-50">Siguiente</button>
+              <button disabled={page * 20 >= total} onClick={() => loadRecords(page + 1)} className="px-3 py-1 text-sm border rounded hover:bg-gray-100 disabled:opacity-50 cursor-pointer">Siguiente</button>
             </div>
           </div>
         </>

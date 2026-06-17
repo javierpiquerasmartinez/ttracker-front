@@ -24,7 +24,7 @@ export function PeriodFilter({ period, onPeriodChange, customFrom, customTo, onC
         <button
           key={p.value}
           onClick={() => onPeriodChange(p.value)}
-          className={`px-3 py-1.5 text-sm rounded-lg font-medium transition-colors ${
+          className={`px-3 py-1.5 text-sm rounded-lg font-medium transition-colors cursor-pointer ${
             period === p.value
               ? 'bg-blue-600 text-white'
               : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-50'

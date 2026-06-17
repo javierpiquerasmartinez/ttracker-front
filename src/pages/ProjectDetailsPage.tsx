@@ -70,7 +70,7 @@ export function ProjectDetailsPage() {
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <button onClick={() => navigate('/')} className="text-sm text-blue-600 hover:text-blue-800 mb-4 inline-block">
+      <button onClick={() => navigate('/')} className="text-sm text-blue-600 hover:text-blue-800 mb-4 inline-block cursor-pointer">
         &larr; Volver al Dashboard
       </button>
 
@@ -85,7 +85,7 @@ export function ProjectDetailsPage() {
             <p className="text-sm text-gray-500">Total</p>
           </div>
         </div>
-        <button onClick={handleExport} className="mt-3 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700">
+        <button onClick={handleExport} className="mt-3 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 cursor-pointer">
           Exportar PDF
         </button>
       </div>
@@ -116,8 +116,8 @@ export function ProjectDetailsPage() {
                   </td>
                   <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">{formatHours(r.duration_minutes)}</td>
                   <td className="px-4 py-3 text-sm text-right space-x-2">
-                    <button onClick={() => setEditingRecord(r)} className="text-blue-600 hover:text-blue-800">Editar</button>
-                    <button onClick={() => handleDelete(r)} className="text-red-600 hover:text-red-800">Eliminar</button>
+                    <button onClick={() => setEditingRecord(r)} className="text-blue-600 hover:text-blue-800 cursor-pointer">Editar</button>
+                    <button onClick={() => handleDelete(r)} className="text-red-600 hover:text-red-800 cursor-pointer">Eliminar</button>
                   </td>
                 </tr>
               ))}
