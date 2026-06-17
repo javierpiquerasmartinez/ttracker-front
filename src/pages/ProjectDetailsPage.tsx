@@ -25,7 +25,7 @@ export function ProjectDetailsPage() {
     try {
       const [p, r] = await Promise.all([
         getProjects().then((ps) => ps.find((p) => p.id === id) || null),
-        getTimeRecords({ projectId: id }).then((d) => d.records),
+        getTimeRecords({ projectId: id, limit: 1000 }).then((d) => d.records),
       ]);
       setProject(p);
       setRecords(r);
