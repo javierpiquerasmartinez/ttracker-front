@@ -4,7 +4,6 @@ import { getClients } from '../services/clients.service';
 import { Modal } from '../components/common/Modal';
 import { ProjectForm } from '../components/projects/ProjectForm';
 import { Loading } from '../components/common/Loading';
-import { formatDecimalHours } from '../utils/date';
 import { useNavigate } from 'react-router-dom';
 import type { Project, Client } from '../../types';
 

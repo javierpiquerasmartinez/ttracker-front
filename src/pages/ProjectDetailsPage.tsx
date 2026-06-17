@@ -7,7 +7,7 @@ import { Modal } from '../components/common/Modal';
 import { TimeRecordForm } from '../components/time-records/TimeRecordForm';
 import { Loading } from '../components/common/Loading';
 import { useToast } from '../context/ToastContext';
-import { formatDate, formatHours, formatDecimalHours } from '../utils/date';
+import { formatDate, formatHours, formatMinutes } from '../utils/date';
 import type { TimeRecord, Project } from '../types';
 
 export function ProjectDetailsPage() {
@@ -81,7 +81,7 @@ export function ProjectDetailsPage() {
             <p className="text-sm text-gray-500">Cliente: {project.client?.name || 'N/A'}</p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-gray-900">{formatDecimalHours(totalMinutes)}h</p>
+            <p className="text-2xl font-bold text-gray-900">{formatMinutes(totalMinutes)}</p>
             <p className="text-sm text-gray-500">Total</p>
           </div>
         </div>

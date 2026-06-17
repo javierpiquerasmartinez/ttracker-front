@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { exportPdf } from '../../services/timeRecords.service';
 import { useToast } from '../../context/ToastContext';
-import { formatDecimalHours } from '../../utils/date';
+import { formatMinutes } from '../../utils/date';
 import type { DashboardProject } from '../../types';
 
 interface Props {
@@ -59,7 +59,7 @@ export function ProjectTable({ projects, fromDate, toDate }: Props) {
             >
               <td className="px-6 py-4 text-sm text-gray-900">{p.clientName}</td>
               <td className="px-6 py-4 text-sm font-medium text-gray-900">{p.projectName}</td>
-              <td className="px-6 py-4 text-sm text-right text-gray-900 font-mono">{formatDecimalHours(p.minutes)}h</td>
+              <td className="px-6 py-4 text-sm text-right text-gray-900 font-mono">{formatMinutes(p.minutes)}</td>
               <td className="px-6 py-4 text-sm text-right text-gray-500">{p.percentage.toFixed(1)}%</td>
               <td className="px-6 py-4 text-sm text-right space-x-2">
                 <button

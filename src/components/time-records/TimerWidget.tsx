@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Modal } from '../common/Modal';
 import { PlayModal } from './PlayModal';
 import { useToast } from '../../context/ToastContext';
-import { formatMinutes } from '../../utils/date';
+import { formatMinutes, formatSeconds } from '../../utils/date';
 
 export function TimerWidget() {
   const { timer, stop } = useTimer();
@@ -19,7 +19,7 @@ export function TimerWidget() {
   };
 
   if (timer.isRunning && timer.activeRecord) {
-    const elapsed = formatMinutes(Math.floor(timer.elapsed / 60));
+    const elapsed = formatSeconds(timer.elapsed);
     return (
       <div className="bg-green-50 border border-green-200 rounded-lg px-4 py-2 flex items-center gap-4">
         <div className="flex items-center gap-2">
