@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 
@@ -66,6 +66,12 @@ export function LoginPage() {
             {loading ? 'Accediendo...' : 'Acceder'}
           </button>
         </form>
+        <p className="text-sm text-center text-gray-500 mt-4">
+          ¿No tienes cuenta?{' '}
+          <Link to="/register" className="text-blue-600 hover:text-blue-800 font-medium">
+            Crear cuenta
+          </Link>
+        </p>
       </div>
     </div>
   );
