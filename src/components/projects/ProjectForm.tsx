@@ -1,21 +1,23 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import { useToast } from '../../context/ToastContext';
 import { getClients } from '../../services/clients.service';
-import { createProject } from '../../services/projects.service';
-import type { Client } from '../../types';
+import { createProject, updateProject } from '../../services/projects.service';
+import type { Client, Project } from '../../types';
 
 interface Props {
-  onCreated: () => void;
+  project?: Project;
+  onSaved: () => void;
   onClose: () => void;
   preselectedClientId?: string;
 }
 
-export function ProjectForm({ onCreated, onClose, preselectedClientId }: Props) {
+export function ProjectForm({ project, onSaved, onClose, preselectedClientId }: Props) {
   const { addToast } = useToast();
+  const isEditing = !!project;
   const [clients, setClients] = useState<Client[]>([]);
-  const [clientId, setClientId] = useState(preselectedClientId || '');
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [clientId, setClientId] = useState(preselectedClientId || project?.client_id || '');
+  const [name, setName] = useState(project?.name || '');
+  const [description, setDescription] = useState(project?.description || '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -25,14 +27,19 @@ export function ProjectForm({ onCreated, onClose, preselectedClientId }: Props) 
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!clientId) { setError('Selecciona un cliente'); return; }
+    if (!isEditing && !clientId) { setError('Selecciona un cliente'); return; }
     if (!name.trim()) { setError('El nombre es obligatorio'); return; }
     setLoading(true);
     setError('');
     try {
-      await createProject({ client_id: clientId, name: name.trim(), description: description.trim() || undefined });
-      addToast('Proyecto creado', 'success');
-      onCreated();
+      if (isEditing && project) {
+        await updateProject(project.id, { name: name.trim(), description: description.trim() || undefined });
+        addToast('Proyecto actualizado', 'success');
+      } else {
+        await createProject({ client_id: clientId, name: name.trim(), description: description.trim() || undefined });
+        addToast('Proyecto creado', 'success');
+      }
+      onSaved();
       onClose();
     } catch (err: any) {
       setError(err.message);
@@ -41,7 +48,7 @@ export function ProjectForm({ onCreated, onClose, preselectedClientId }: Props) 
     }
   };
 
-  if (clients.length === 0) {
+  if (!isEditing && clients.length === 0) {
     return (
       <div className="text-center py-4 text-gray-500">
         <p>Crea un cliente primero para poder crear proyectos</p>
@@ -52,20 +59,30 @@ export function ProjectForm({ onCreated, onClose, preselectedClientId }: Props) 
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Cliente *</label>
-        <select
-          value={clientId}
-          onChange={(e) => setClientId(e.target.value)}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-        >
-          <option value="">Seleccionar cliente...</option>
-          {clients.map((c) => (
-            <option key={c.id} value={c.id}>{c.name}</option>
-          ))}
-        </select>
-      </div>
+      {!isEditing && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Cliente *</label>
+          <select
+            value={clientId}
+            onChange={(e) => setClientId(e.target.value)}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          >
+            <option value="">Seleccionar cliente...</option>
+            {clients.map((c) => (
+              <option key={c.id} value={c.id}>{c.name}</option>
+            ))}
+          </select>
+        </div>
+      )}
+      {isEditing && project?.client && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
+          <div className="px-3 py-2 border border-gray-200 rounded-lg bg-gray-50 text-sm text-gray-600">
+            {project.client.name}
+          </div>
+        </div>
+      )}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Nombre *</label>
         <input
@@ -90,7 +107,7 @@ export function ProjectForm({ onCreated, onClose, preselectedClientId }: Props) 
       <div className="flex justify-end gap-3">
         <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 cursor-pointer">Cancelar</button>
         <button type="submit" disabled={loading} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 cursor-pointer">
-          {loading ? 'Guardando...' : 'Guardar'}
+          {loading ? 'Guardando...' : isEditing ? 'Actualizar' : 'Guardar'}
         </button>
       </div>
     </form>

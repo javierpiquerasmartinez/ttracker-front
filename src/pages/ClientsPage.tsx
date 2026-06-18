@@ -10,6 +10,7 @@ export function ClientsPage() {
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
 
   const loadClients = async () => {
     try {
@@ -49,6 +50,7 @@ export function ClientsPage() {
                 <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Nombre</th>
                 <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Descripción</th>
                 <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Creado</th>
+                <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase">Acciones</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -57,6 +59,9 @@ export function ClientsPage() {
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">{c.name}</td>
                   <td className="px-6 py-4 text-sm text-gray-500">{c.description || '-'}</td>
                   <td className="px-6 py-4 text-sm text-gray-500">{formatDate(c.created_at.split('T')[0])}</td>
+                  <td className="px-6 py-4 text-sm text-right">
+                    <button onClick={() => setEditingClient(c)} className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer">Editar</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -65,7 +70,13 @@ export function ClientsPage() {
       )}
 
       <Modal open={showForm} onClose={() => setShowForm(false)} title="Crear Cliente">
-        <ClientForm onCreated={loadClients} onClose={() => setShowForm(false)} />
+        <ClientForm onSaved={loadClients} onClose={() => setShowForm(false)} />
+      </Modal>
+
+      <Modal open={!!editingClient} onClose={() => setEditingClient(null)} title="Editar Cliente">
+        {editingClient && (
+          <ClientForm client={editingClient} onSaved={loadClients} onClose={() => setEditingClient(null)} />
+        )}
       </Modal>
     </div>
   );

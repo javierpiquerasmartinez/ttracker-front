@@ -7,7 +7,7 @@ export function LoginPage() {
   const { user, login, error } = useAuth();
   const { addToast } = useToast();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('admin@ttracker.com');
+  const [email, setEmail] = useState('admin@slott.com');
   const [password, setPassword] = useState('admin123');
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +31,7 @@ export function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-sm">
         <h1 className="text-2xl font-bold text-center text-gray-900 mb-6">
-          Time Tracker
+          Slott
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -42,7 +42,7 @@ export function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              placeholder="admin@ttracker.com"
+              placeholder="admin@slott.com"
             />
           </div>
           <div>

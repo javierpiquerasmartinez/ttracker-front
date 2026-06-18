@@ -5,13 +5,14 @@ import { Modal } from '../components/common/Modal';
 import { ProjectForm } from '../components/projects/ProjectForm';
 import { Loading } from '../components/common/Loading';
 import { useNavigate } from 'react-router-dom';
-import type { Project, Client } from '../../types';
+import type { Project, Client } from '../types';
 
 export function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [filterClientId, setFilterClientId] = useState('');
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
@@ -101,10 +102,16 @@ export function ProjectsPage() {
                   <td className="px-6 py-4 text-sm text-gray-900">{p.client?.name || '-'}</td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">{p.name}</td>
                   <td className="px-6 py-4 text-sm text-gray-500">{p.description || '-'}</td>
-                  <td className="px-6 py-4 text-sm text-right">
+                  <td className="px-6 py-4 text-sm text-right whitespace-nowrap">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setEditingProject(p); }}
+                      className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer mr-3"
+                    >
+                      Editar
+                    </button>
                     <button
                       onClick={(e) => { e.stopPropagation(); navigate(`/projects/${p.id}`); }}
-                      className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
+                      className="text-gray-600 hover:text-gray-800 font-medium cursor-pointer"
                     >
                       Ver
                     </button>
@@ -117,7 +124,13 @@ export function ProjectsPage() {
       )}
 
       <Modal open={showForm} onClose={() => setShowForm(false)} title="Crear Proyecto">
-        <ProjectForm onCreated={() => loadProjects(filterClientId)} onClose={() => setShowForm(false)} />
+        <ProjectForm onSaved={() => loadProjects(filterClientId)} onClose={() => setShowForm(false)} />
+      </Modal>
+
+      <Modal open={!!editingProject} onClose={() => setEditingProject(null)} title="Editar Proyecto">
+        {editingProject && (
+          <ProjectForm project={editingProject} onSaved={() => loadProjects(filterClientId)} onClose={() => setEditingProject(null)} />
+        )}
       </Modal>
     </div>
   );

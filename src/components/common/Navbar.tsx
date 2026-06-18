@@ -20,7 +20,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link to="/" className="text-lg font-bold text-blue-600">
-            Time Tracker
+            Slott
           </Link>
           <Link to="/" className="text-sm text-gray-600 hover:text-gray-900">
             Dashboard

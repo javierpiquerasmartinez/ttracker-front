@@ -6,8 +6,8 @@ import { Modal } from '../components/common/Modal';
 import { TimeRecordForm } from '../components/time-records/TimeRecordForm';
 import { Loading } from '../components/common/Loading';
 import { useToast } from '../context/ToastContext';
-import { formatDate, formatTime, formatHours } from '../utils/date';
-import type { TimeRecord, Client, Project } from '../../types';
+import { formatDate, formatHours } from '../utils/date';
+import type { TimeRecord, Client, Project } from '../types';
 
 export function TimeRecordsPage() {
   const { addToast } = useToast();

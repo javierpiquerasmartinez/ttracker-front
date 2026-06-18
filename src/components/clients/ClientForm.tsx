@@ -1,16 +1,19 @@
 import { useState, type FormEvent } from 'react';
 import { useToast } from '../../context/ToastContext';
-import { createClient } from '../../services/clients.service';
+import { createClient, updateClient } from '../../services/clients.service';
+import type { Client } from '../../types';
 
 interface Props {
-  onCreated: () => void;
+  client?: Client;
+  onSaved: () => void;
   onClose: () => void;
 }
 
-export function ClientForm({ onCreated, onClose }: Props) {
+export function ClientForm({ client, onSaved, onClose }: Props) {
   const { addToast } = useToast();
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const isEditing = !!client;
+  const [name, setName] = useState(client?.name || '');
+  const [description, setDescription] = useState(client?.description || '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -23,9 +26,15 @@ export function ClientForm({ onCreated, onClose }: Props) {
     setLoading(true);
     setError('');
     try {
-      await createClient({ name: name.trim(), description: description.trim() || undefined });
-      addToast('Cliente creado', 'success');
-      onCreated();
+      const data = { name: name.trim(), description: description.trim() || undefined };
+      if (isEditing && client) {
+        await updateClient(client.id, data);
+        addToast('Cliente actualizado', 'success');
+      } else {
+        await createClient(data);
+        addToast('Cliente creado', 'success');
+      }
+      onSaved();
       onClose();
     } catch (err: any) {
       setError(err.message);
@@ -62,7 +71,7 @@ export function ClientForm({ onCreated, onClose }: Props) {
           Cancelar
         </button>
         <button type="submit" disabled={loading} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 cursor-pointer">
-          {loading ? 'Guardando...' : 'Guardar'}
+          {loading ? 'Guardando...' : isEditing ? 'Actualizar' : 'Guardar'}
         </button>
       </div>
     </form>

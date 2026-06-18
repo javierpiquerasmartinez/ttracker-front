@@ -45,7 +45,7 @@ export function TimerWidget() {
         onClick={() => setShowPlay(true)}
         className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 cursor-pointer"
       >
-        <span className="text-lg">▶</span> Play
+        <span>▶</span> Play
       </button>
       <Modal open={showPlay} onClose={() => setShowPlay(false)} title="Iniciar Registro">
         <PlayModal onClose={() => setShowPlay(false)} />

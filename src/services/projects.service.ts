@@ -14,3 +14,7 @@ export function createProject(data: {
 }): Promise<Project> {
   return api.post<Project>('/projects', data);
 }
+
+export function updateProject(id: string, data: { name?: string; description?: string }): Promise<Project> {
+  return api.patch<Project>(`/projects/${id}`, data);
+}

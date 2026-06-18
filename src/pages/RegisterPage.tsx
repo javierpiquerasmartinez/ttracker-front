@@ -43,7 +43,7 @@ export function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-sm">
         <h1 className="text-2xl font-bold text-center text-gray-900 mb-6">
-          Time Tracker
+          Slott
         </h1>
         <p className="text-sm text-gray-500 text-center mb-6">Crear cuenta nueva</p>
         <form onSubmit={handleSubmit} className="space-y-4">
