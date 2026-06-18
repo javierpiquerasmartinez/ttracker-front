@@ -57,7 +57,7 @@ export function PlayModal({ onClose }: Props) {
           value={clientId}
           onChange={(e) => setClientId(e.target.value)}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
         >
           <option value="">Seleccionar cliente...</option>
           {clients.map((c) => (
@@ -72,7 +72,7 @@ export function PlayModal({ onClose }: Props) {
           onChange={(e) => { setProjectId(e.target.value); setError(''); }}
           required
           disabled={!clientId}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none disabled:bg-gray-100"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none disabled:bg-gray-100"
         >
           <option value="">Seleccionar proyecto...</option>
           {projects.map((p) => (
@@ -87,7 +87,7 @@ export function PlayModal({ onClose }: Props) {
           onChange={(e) => setDescription(e.target.value)}
           rows={2}
           placeholder="ej: Implementar login"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none resize-none"
         />
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}

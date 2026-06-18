@@ -29,7 +29,7 @@ export function ClientsPage() {
         <h1 className="text-2xl font-bold text-gray-900">Clientes</h1>
         <button
           onClick={() => setShowForm(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 cursor-pointer"
+          className="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 cursor-pointer"
         >
           Crear Cliente
         </button>
@@ -60,7 +60,7 @@ export function ClientsPage() {
                   <td className="px-6 py-4 text-sm text-gray-500">{c.description || '-'}</td>
                   <td className="px-6 py-4 text-sm text-gray-500">{formatDate(c.created_at.split('T')[0])}</td>
                   <td className="px-6 py-4 text-sm text-right">
-                    <button onClick={() => setEditingClient(c)} className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer">Editar</button>
+                    <button onClick={() => setEditingClient(c)} className="text-brand-600 hover:text-brand-800 font-medium cursor-pointer">Editar</button>
                   </td>
                 </tr>
               ))}

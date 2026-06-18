@@ -52,7 +52,7 @@ export function ProjectsPage() {
         <h1 className="text-2xl font-bold text-gray-900">Proyectos</h1>
         <button
           onClick={() => setShowForm(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 cursor-pointer"
+          className="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 cursor-pointer"
         >
           Crear Proyecto
         </button>
@@ -62,7 +62,7 @@ export function ProjectsPage() {
         <select
           value={filterClientId}
           onChange={(e) => setFilterClientId(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+          className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
         >
           <option value="">Todos los clientes</option>
           {clients.map((c) => (
@@ -74,7 +74,7 @@ export function ProjectsPage() {
           placeholder="Buscar proyecto..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-lg text-sm flex-1 max-w-xs focus:ring-2 focus:ring-blue-500 outline-none"
+          className="px-3 py-2 border border-gray-300 rounded-lg text-sm flex-1 max-w-xs focus:ring-2 focus:ring-brand-500 outline-none"
         />
       </div>
 
@@ -105,7 +105,7 @@ export function ProjectsPage() {
                   <td className="px-6 py-4 text-sm text-right whitespace-nowrap">
                     <button
                       onClick={(e) => { e.stopPropagation(); setEditingProject(p); }}
-                      className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer mr-3"
+                      className="text-brand-600 hover:text-brand-800 font-medium cursor-pointer mr-3"
                     >
                       Editar
                     </button>

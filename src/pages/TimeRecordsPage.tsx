@@ -83,7 +83,7 @@ export function TimeRecordsPage() {
         <h1 className="text-2xl font-bold text-gray-900">Registros de Tiempo</h1>
         <button
           onClick={() => setShowManualForm(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 cursor-pointer"
+          className="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 cursor-pointer"
         >
           + Registro Manual
         </button>
@@ -93,29 +93,29 @@ export function TimeRecordsPage() {
         <div className="flex flex-wrap gap-3 items-end">
           <div>
             <label className="block text-xs text-gray-500 mb-1">Cliente</label>
-            <select value={filterClientId} onChange={(e) => setFilterClientId(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
+            <select value={filterClientId} onChange={(e) => setFilterClientId(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-brand-500">
               <option value="">Todos</option>
               {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-xs text-gray-500 mb-1">Proyecto</label>
-            <select value={filterProjectId} onChange={(e) => setFilterProjectId(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
+            <select value={filterProjectId} onChange={(e) => setFilterProjectId(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-brand-500">
               <option value="">Todos</option>
               {projects.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-xs text-gray-500 mb-1">Desde</label>
-            <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" />
+            <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-brand-500" />
           </div>
           <div>
             <label className="block text-xs text-gray-500 mb-1">Hasta</label>
-            <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" />
+            <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-brand-500" />
           </div>
           <div>
             <label className="block text-xs text-gray-500 mb-1">Buscar</label>
-            <input type="text" placeholder="Descripción..." value={search} onChange={(e) => setSearch(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 w-40" />
+            <input type="text" placeholder="Descripción..." value={search} onChange={(e) => setSearch(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-brand-500 w-40" />
           </div>
           <button onClick={handleApplyFilters} className="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer">
             Filtrar
@@ -148,13 +148,13 @@ export function TimeRecordsPage() {
                     <td className="px-4 py-3 text-sm text-gray-900">{r.project?.name || '-'}</td>
                     <td className="px-4 py-3 text-sm text-gray-500 max-w-xs truncate">{r.description || '-'}</td>
                     <td className="px-4 py-3 text-sm">
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${r.record_type === 'automatic' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'}`}>
+                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${r.record_type === 'automatic' ? 'bg-brand-100 text-brand-700' : 'bg-amber-100 text-amber-700'}`}>
                         {r.record_type === 'automatic' ? 'Auto' : 'Manual'}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">{formatHours(r.duration_minutes)}</td>
                     <td className="px-4 py-3 text-sm text-right space-x-2">
-                      <button onClick={() => setEditingRecord(r)} className="text-blue-600 hover:text-blue-800 cursor-pointer">Editar</button>
+                      <button onClick={() => setEditingRecord(r)} className="text-brand-600 hover:text-brand-800 cursor-pointer">Editar</button>
                       <button onClick={() => handleDelete(r)} className="text-red-600 hover:text-red-800 cursor-pointer">Eliminar</button>
                     </td>
                   </tr>

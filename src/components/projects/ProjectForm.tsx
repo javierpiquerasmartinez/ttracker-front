@@ -52,7 +52,7 @@ export function ProjectForm({ project, onSaved, onClose, preselectedClientId }: 
     return (
       <div className="text-center py-4 text-gray-500">
         <p>Crea un cliente primero para poder crear proyectos</p>
-        <button onClick={onClose} className="mt-3 text-blue-600 text-sm cursor-pointer">Cerrar</button>
+        <button onClick={onClose} className="mt-3 text-brand-600 text-sm cursor-pointer">Cerrar</button>
       </div>
     );
   }
@@ -66,7 +66,7 @@ export function ProjectForm({ project, onSaved, onClose, preselectedClientId }: 
             value={clientId}
             onChange={(e) => setClientId(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           >
             <option value="">Seleccionar cliente...</option>
             {clients.map((c) => (
@@ -91,7 +91,7 @@ export function ProjectForm({ project, onSaved, onClose, preselectedClientId }: 
           onChange={(e) => { setName(e.target.value); setError(''); }}
           maxLength={255}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
         />
       </div>
       <div>
@@ -100,13 +100,13 @@ export function ProjectForm({ project, onSaved, onClose, preselectedClientId }: 
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={2}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none resize-none"
         />
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
       <div className="flex justify-end gap-3">
         <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 cursor-pointer">Cancelar</button>
-        <button type="submit" disabled={loading} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 cursor-pointer">
+        <button type="submit" disabled={loading} className="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 disabled:opacity-50 cursor-pointer">
           {loading ? 'Guardando...' : isEditing ? 'Actualizar' : 'Guardar'}
         </button>
       </div>

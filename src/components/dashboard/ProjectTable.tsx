@@ -64,7 +64,7 @@ export function ProjectTable({ projects, fromDate, toDate }: Props) {
               <td className="px-6 py-4 text-sm text-right space-x-2">
                 <button
                   onClick={(e) => { e.stopPropagation(); navigate(`/projects/${p.projectId}`); }}
-                  className="text-blue-600 hover:text-blue-800 cursor-pointer"
+                  className="text-brand-600 hover:text-brand-800 cursor-pointer"
                 >
                   Ver
                 </button>

@@ -13,7 +13,7 @@ export function ToastContainer() {
               ? 'bg-green-600'
               : toast.type === 'error'
                 ? 'bg-red-600'
-                : 'bg-blue-600'
+                : 'bg-brand-600'
           }`}
         >
           {toast.message}

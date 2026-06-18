@@ -26,7 +26,7 @@ export function PeriodFilter({ period, onPeriodChange, customFrom, customTo, onC
           onClick={() => onPeriodChange(p.value)}
           className={`px-3 py-1.5 text-sm rounded-lg font-medium transition-colors cursor-pointer ${
             period === p.value
-              ? 'bg-blue-600 text-white'
+              ? 'bg-brand-600 text-white'
               : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-50'
           }`}
         >
@@ -39,14 +39,14 @@ export function PeriodFilter({ period, onPeriodChange, customFrom, customTo, onC
             type="date"
             value={customFrom}
             onChange={(e) => onCustomFromChange(e.target.value)}
-            className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-500"
           />
           <span className="text-sm text-gray-500">a</span>
           <input
             type="date"
             value={customTo}
             onChange={(e) => onCustomToChange(e.target.value)}
-            className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-500"
           />
         </div>
       )}

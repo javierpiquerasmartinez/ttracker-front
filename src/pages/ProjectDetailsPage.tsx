@@ -70,7 +70,7 @@ export function ProjectDetailsPage() {
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <button onClick={() => navigate('/')} className="text-sm text-blue-600 hover:text-blue-800 mb-4 inline-block cursor-pointer">
+      <button onClick={() => navigate('/')} className="text-sm text-brand-600 hover:text-brand-800 mb-4 inline-block cursor-pointer">
         &larr; Volver al Dashboard
       </button>
 
@@ -110,13 +110,13 @@ export function ProjectDetailsPage() {
                   <td className="px-4 py-3 text-sm text-gray-900">{formatDate(r.date)}</td>
                   <td className="px-4 py-3 text-sm text-gray-500 max-w-xs truncate">{r.description || '-'}</td>
                   <td className="px-4 py-3 text-sm">
-                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${r.record_type === 'automatic' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'}`}>
+                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${r.record_type === 'automatic' ? 'bg-brand-100 text-brand-700' : 'bg-amber-100 text-amber-700'}`}>
                       {r.record_type === 'automatic' ? 'Auto' : 'Manual'}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">{formatHours(r.duration_minutes)}</td>
                   <td className="px-4 py-3 text-sm text-right space-x-2">
-                    <button onClick={() => setEditingRecord(r)} className="text-blue-600 hover:text-blue-800 cursor-pointer">Editar</button>
+                    <button onClick={() => setEditingRecord(r)} className="text-brand-600 hover:text-brand-800 cursor-pointer">Editar</button>
                     <button onClick={() => handleDelete(r)} className="text-red-600 hover:text-red-800 cursor-pointer">Eliminar</button>
                   </td>
                 </tr>

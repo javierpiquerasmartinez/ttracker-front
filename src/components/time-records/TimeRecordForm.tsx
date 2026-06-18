@@ -100,7 +100,7 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
             onChange={(e) => { setDate(e.target.value); setError(''); }}
             max={getTodayStr()}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           />
         </div>
         <div>
@@ -110,7 +110,7 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
             value={startTime}
             onChange={(e) => { setStartTime(e.target.value); setError(''); }}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           />
         </div>
         <div>
@@ -120,7 +120,7 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
             value={endTime}
             onChange={(e) => { setEndTime(e.target.value); setError(''); }}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           />
         </div>
       </div>
@@ -131,7 +131,7 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
             value={clientId}
             onChange={(e) => setClientId(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
           >
             <option value="">Seleccionar...</option>
             {clients.map((c) => (
@@ -146,7 +146,7 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
             onChange={(e) => { setProjectId(e.target.value); setError(''); }}
             required
             disabled={!clientId}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none disabled:bg-gray-100"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none disabled:bg-gray-100"
           >
             <option value="">Seleccionar...</option>
             {projects.map((p) => (
@@ -161,13 +161,13 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={2}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none resize-none"
         />
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
       <div className="flex justify-end gap-3">
         <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 cursor-pointer">Cancelar</button>
-        <button type="submit" disabled={loading} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 cursor-pointer">
+        <button type="submit" disabled={loading} className="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 disabled:opacity-50 cursor-pointer">
           {loading ? 'Guardando...' : isEditing ? 'Actualizar' : 'Guardar'}
         </button>
       </div>

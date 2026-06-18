@@ -1,6 +1,13 @@
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+
+const navItems = [
+  { to: '/', label: 'Dashboard', end: true },
+  { to: '/clients', label: 'Clientes', end: false },
+  { to: '/projects', label: 'Proyectos', end: false },
+  { to: '/records', label: 'Registros', end: false },
+];
 
 export function Navbar() {
   const { user, logout } = useAuth();
@@ -16,27 +23,38 @@ export function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-200">
+    <nav className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-30">
       <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Link to="/" className="text-lg font-bold text-blue-600">
-            Slott
+        <div className="flex items-center gap-7">
+          <Link to="/" className="shrink-0">
+            <img src="/slott-mark.png" alt="Slott" className="h-9 w-9" />
           </Link>
-          <Link to="/" className="text-sm text-gray-600 hover:text-gray-900">
-            Dashboard
-          </Link>
-          <Link to="/clients" className="text-sm text-gray-600 hover:text-gray-900">
-            Clientes
-          </Link>
-          <Link to="/projects" className="text-sm text-gray-600 hover:text-gray-900">
-            Proyectos
-          </Link>
-          <Link to="/records" className="text-sm text-gray-600 hover:text-gray-900">
-            Registros
-          </Link>
+          <div className="flex items-center gap-1">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  `px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-brand-50 text-brand-700'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </div>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-500">{user?.email}</span>
+          <div className="hidden sm:flex items-center gap-2">
+            <div className="h-7 w-7 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-semibold">
+              {(user?.email ?? '?')[0]?.toUpperCase()}
+            </div>
+            <span className="text-sm text-gray-600">{user?.email}</span>
+          </div>
           <button
             onClick={handleLogout}
             className="text-sm text-red-600 hover:text-red-800 font-medium cursor-pointer"
