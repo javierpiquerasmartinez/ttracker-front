@@ -23,10 +23,10 @@ export function Navbar() {
   };
 
   return (
-    <nav className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-30">
-      <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-        <div className="flex items-center gap-7">
-          <Link to="/" className="shrink-0">
+    <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-8">
+          <Link to="/" className="shrink-0 rounded-xl bg-brand-50 p-1.5 transition-colors hover:bg-brand-100">
             <img src="/slott-mark.png" alt="Slott" className="h-9 w-9" />
           </Link>
           <div className="flex items-center gap-1">
@@ -48,16 +48,16 @@ export function Navbar() {
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-2">
-            <div className="h-7 w-7 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-semibold">
+            <div className="h-8 w-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-semibold">
               {(user?.email ?? '?')[0]?.toUpperCase()}
             </div>
             <span className="text-sm text-gray-600">{user?.email}</span>
           </div>
           <button
             onClick={handleLogout}
-            className="text-sm text-red-600 hover:text-red-800 font-medium cursor-pointer"
+            className="text-sm text-gray-500 hover:text-red-600 font-medium cursor-pointer transition-colors"
           >
             Salir
           </button>

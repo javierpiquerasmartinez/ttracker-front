@@ -20,19 +20,21 @@ const periods: { value: Period; label: string }[] = [
 export function PeriodFilter({ period, onPeriodChange, customFrom, customTo, onCustomFromChange, onCustomToChange }: Props) {
   return (
     <div className="flex items-center gap-2 mb-6 flex-wrap">
-      {periods.map((p) => (
-        <button
-          key={p.value}
-          onClick={() => onPeriodChange(p.value)}
-          className={`px-3 py-1.5 text-sm rounded-lg font-medium transition-colors cursor-pointer ${
-            period === p.value
-              ? 'bg-brand-600 text-white'
-              : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-50'
-          }`}
-        >
-          {p.label}
-        </button>
-      ))}
+      <div className="inline-flex items-center gap-1 p-1 bg-gray-100 rounded-lg">
+        {periods.map((p) => (
+          <button
+            key={p.value}
+            onClick={() => onPeriodChange(p.value)}
+            className={`px-3 py-1.5 text-sm rounded-md font-medium transition-all cursor-pointer ${
+              period === p.value
+                ? 'bg-white text-brand-700 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
       {period === 'custom' && (
         <div className="flex items-center gap-2">
           <input
@@ -41,7 +43,7 @@ export function PeriodFilter({ period, onPeriodChange, customFrom, customTo, onC
             onChange={(e) => onCustomFromChange(e.target.value)}
             className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-500"
           />
-          <span className="text-sm text-gray-500">a</span>
+          <span className="text-sm text-gray-400">a</span>
           <input
             type="date"
             value={customTo}

@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { register } from '../services/auth.service';
 import { AuthBrandPanel } from '../components/auth/AuthBrandPanel';
+import { Button } from '../components/common/ui/Button';
+import { Input } from '../components/common/ui/Input';
 
 export function RegisterPage() {
   const { user } = useAuth();
@@ -50,7 +52,9 @@ export function RegisterPage() {
       <div className="flex items-center justify-center p-6 bg-gray-50">
         <div className="w-full max-w-sm">
           <div className="md:hidden flex flex-col items-center mb-6">
-            <img src="/slott-mark-large.png" alt="Slott" className="h-14 w-14 mb-2" />
+            <div className="inline-flex items-center justify-center bg-white rounded-2xl p-2.5 shadow-card mb-3">
+              <img src="/slott-mark-large.png" alt="Slott" className="h-12 w-12" />
+            </div>
             <h1 className="text-2xl font-bold text-brand-600">Slott</h1>
           </div>
 
@@ -58,63 +62,47 @@ export function RegisterPage() {
           <p className="text-sm text-gray-500 mb-6 hidden md:block">Rellena tus datos para empezar</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-                placeholder="tu@email.com"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña *</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-                placeholder="Mínimo 6 caracteres"
-              />
-            </div>
+            <Input
+              type="email"
+              label="Email *"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="tu@email.com"
+            />
+            <Input
+              type="password"
+              label="Contraseña *"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
+              placeholder="Mínimo 6 caracteres"
+            />
             <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-                />
-              </div>
+              <Input
+                type="text"
+                label="Nombre"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <Input
+                type="text"
+                label="Apellido"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
             </div>
             {error && (
-              <p className="text-sm text-red-600 bg-red-50 p-2 rounded">{error}</p>
+              <p className="text-sm text-red-600 bg-red-50 border border-red-100 px-3 py-2 rounded-lg">{error}</p>
             )}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-2 bg-brand-600 text-white rounded-lg font-medium hover:bg-brand-700 disabled:opacity-50 transition-colors cursor-pointer"
-            >
-              {loading ? 'Creando...' : 'Crear cuenta'}
-            </button>
+            <Button type="submit" fullWidth loading={loading}>
+              Crear cuenta
+            </Button>
           </form>
-          <p className="text-sm text-center text-gray-500 mt-4">
+          <p className="text-sm text-center text-gray-500 mt-6">
             ¿Ya tienes cuenta?{' '}
-            <Link to="/login" className="text-brand-600 hover:text-brand-800 font-medium">
+            <Link to="/login" className="text-brand-600 hover:text-brand-700 font-medium">
               Inicia sesión
             </Link>
           </p>

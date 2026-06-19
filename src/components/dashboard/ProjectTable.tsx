@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { exportPdf } from '../../services/timeRecords.service';
 import { useToast } from '../../context/ToastContext';
+import { Card } from '../common/ui/Card';
+import { EmptyState } from '../common/ui/EmptyState';
 import { formatMinutes } from '../../utils/date';
 import type { DashboardProject } from '../../types';
 
@@ -31,46 +33,42 @@ export function ProjectTable({ projects, fromDate, toDate }: Props) {
   };
 
   if (projects.length === 0) {
-    return (
-      <div className="text-center py-12 text-gray-500">
-        <p>No hay registros para este período</p>
-      </div>
-    );
+    return <EmptyState title="Sin registros" description="No hay registros para este período" />;
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <Card className="overflow-hidden">
       <table className="w-full">
-        <thead className="bg-gray-50">
+        <thead className="bg-gray-50/80">
           <tr>
-            <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Cliente</th>
-            <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Proyecto</th>
-            <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase">Horas</th>
-            <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase">%</th>
-            <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase">Acciones</th>
+            <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+            <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Proyecto</th>
+            <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Horas</th>
+            <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">%</th>
+            <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200">
+        <tbody className="divide-y divide-gray-100">
           {projects.map((p) => (
             <tr
               key={p.projectId}
               onClick={() => navigate(`/projects/${p.projectId}`)}
-              className="hover:bg-gray-50 cursor-pointer"
+              className="hover:bg-gray-50 cursor-pointer transition-colors"
             >
-              <td className="px-6 py-4 text-sm text-gray-900">{p.clientName}</td>
+              <td className="px-6 py-4 text-sm text-gray-600">{p.clientName}</td>
               <td className="px-6 py-4 text-sm font-medium text-gray-900">{p.projectName}</td>
-              <td className="px-6 py-4 text-sm text-right text-gray-900 font-mono">{formatMinutes(p.minutes)}</td>
-              <td className="px-6 py-4 text-sm text-right text-gray-500">{p.percentage.toFixed(1)}%</td>
-              <td className="px-6 py-4 text-sm text-right space-x-2">
+              <td className="px-6 py-4 text-sm text-right text-gray-900 font-mono tabular-nums">{formatMinutes(p.minutes)}</td>
+              <td className="px-6 py-4 text-sm text-right text-gray-400 tabular-nums">{p.percentage.toFixed(1)}%</td>
+              <td className="px-6 py-4 text-sm text-right whitespace-nowrap">
                 <button
                   onClick={(e) => { e.stopPropagation(); navigate(`/projects/${p.projectId}`); }}
-                  className="text-brand-600 hover:text-brand-800 cursor-pointer"
+                  className="text-brand-600 hover:text-brand-700 cursor-pointer mr-3"
                 >
                   Ver
                 </button>
                 <button
                   onClick={(e) => handleExport(e, p.projectId)}
-                  className="text-green-600 hover:text-green-800 cursor-pointer"
+                  className="text-green-600 hover:text-green-700 cursor-pointer"
                 >
                   Exportar
                 </button>
@@ -79,6 +77,6 @@ export function ProjectTable({ projects, fromDate, toDate }: Props) {
           ))}
         </tbody>
       </table>
-    </div>
+    </Card>
   );
 }

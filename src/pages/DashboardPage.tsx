@@ -7,6 +7,7 @@ import { TimerWidget } from '../components/time-records/TimerWidget';
 import { Modal } from '../components/common/Modal';
 import { TimeRecordForm } from '../components/time-records/TimeRecordForm';
 import { Loading } from '../components/common/Loading';
+import { Button } from '../components/common/ui/Button';
 import { getPeriodDates, getTodayStr } from '../utils/date';
 import type { DashboardSummary, Period } from '../types';
 
@@ -38,15 +39,10 @@ export function DashboardPage() {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
         <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => setShowManualForm(true)}
-            className="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 cursor-pointer"
-          >
-            + Registro Manual
-          </button>
+          <Button onClick={() => setShowManualForm(true)}>+ Registro Manual</Button>
           <TimerWidget />
         </div>
       </div>

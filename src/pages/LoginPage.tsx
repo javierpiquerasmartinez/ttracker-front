@@ -3,6 +3,8 @@ import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { AuthBrandPanel } from '../components/auth/AuthBrandPanel';
+import { Button } from '../components/common/ui/Button';
+import { Input } from '../components/common/ui/Input';
 
 export function LoginPage() {
   const { user, login, error } = useAuth();
@@ -35,7 +37,9 @@ export function LoginPage() {
       <div className="flex items-center justify-center p-6 bg-gray-50">
         <div className="w-full max-w-sm">
           <div className="md:hidden flex flex-col items-center mb-8">
-            <img src="/slott-mark-large.png" alt="Slott" className="h-14 w-14 mb-2" />
+            <div className="inline-flex items-center justify-center bg-white rounded-2xl p-2.5 shadow-card mb-3">
+              <img src="/slott-mark-large.png" alt="Slott" className="h-12 w-12" />
+            </div>
             <h1 className="text-2xl font-bold text-brand-600">Slott</h1>
           </div>
 
@@ -43,41 +47,31 @@ export function LoginPage() {
           <p className="text-sm text-gray-500 mb-6 hidden md:block">Inicia sesión para continuar</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-                placeholder="admin@slott.com"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-              />
-            </div>
+            <Input
+              type="email"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="admin@slott.com"
+            />
+            <Input
+              type="password"
+              label="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
             {error && (
-              <p className="text-sm text-red-600 bg-red-50 p-2 rounded">{error}</p>
+              <p className="text-sm text-red-600 bg-red-50 border border-red-100 px-3 py-2 rounded-lg">{error}</p>
             )}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-2 bg-brand-600 text-white rounded-lg font-medium hover:bg-brand-700 disabled:opacity-50 transition-colors cursor-pointer"
-            >
-              {loading ? 'Accediendo...' : 'Acceder'}
-            </button>
+            <Button type="submit" fullWidth loading={loading}>
+              Acceder
+            </Button>
           </form>
-          <p className="text-sm text-center text-gray-500 mt-4">
+          <p className="text-sm text-center text-gray-500 mt-6">
             ¿No tienes cuenta?{' '}
-            <Link to="/register" className="text-brand-600 hover:text-brand-800 font-medium">
+            <Link to="/register" className="text-brand-600 hover:text-brand-700 font-medium">
               Crear cuenta
             </Link>
           </p>

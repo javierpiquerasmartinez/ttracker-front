@@ -3,6 +3,8 @@ import { useToast } from '../../context/ToastContext';
 import { getClients } from '../../services/clients.service';
 import { getProjects } from '../../services/projects.service';
 import { createManual, updateTimeRecord } from '../../services/timeRecords.service';
+import { Button } from '../common/ui/Button';
+import { Input, Select, Textarea } from '../common/ui/Input';
 import { getTodayStr, formatHours } from '../../utils/date';
 import type { Client, Project, TimeRecord } from '../../types';
 
@@ -92,84 +94,66 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-3 gap-3">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => { setDate(e.target.value); setError(''); }}
-            max={getTodayStr()}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Inicio</label>
-          <input
-            type="time"
-            value={startTime}
-            onChange={(e) => { setStartTime(e.target.value); setError(''); }}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Fin</label>
-          <input
-            type="time"
-            value={endTime}
-            onChange={(e) => { setEndTime(e.target.value); setError(''); }}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
-          <select
-            value={clientId}
-            onChange={(e) => setClientId(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
-          >
-            <option value="">Seleccionar...</option>
-            {clients.map((c) => (
-              <option key={c.id} value={c.id}>{c.name}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Proyecto</label>
-          <select
-            value={projectId}
-            onChange={(e) => { setProjectId(e.target.value); setError(''); }}
-            required
-            disabled={!clientId}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none disabled:bg-gray-100"
-          >
-            <option value="">Seleccionar...</option>
-            {projects.map((p) => (
-              <option key={p.id} value={p.id}>{p.name}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={2}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none resize-none"
+        <Input
+          type="date"
+          label="Fecha"
+          value={date}
+          onChange={(e) => { setDate(e.target.value); setError(''); }}
+          max={getTodayStr()}
+          required
+        />
+        <Input
+          type="time"
+          label="Inicio"
+          value={startTime}
+          onChange={(e) => { setStartTime(e.target.value); setError(''); }}
+          required
+        />
+        <Input
+          type="time"
+          label="Fin"
+          value={endTime}
+          onChange={(e) => { setEndTime(e.target.value); setError(''); }}
+          required
         />
       </div>
+      <div className="grid grid-cols-2 gap-3">
+        <Select
+          label="Cliente"
+          value={clientId}
+          onChange={(e) => setClientId(e.target.value)}
+          required
+        >
+          <option value="">Seleccionar...</option>
+          {clients.map((c) => (
+            <option key={c.id} value={c.id}>{c.name}</option>
+          ))}
+        </Select>
+        <Select
+          label="Proyecto"
+          value={projectId}
+          onChange={(e) => { setProjectId(e.target.value); setError(''); }}
+          required
+          disabled={!clientId}
+        >
+          <option value="">Seleccionar...</option>
+          {projects.map((p) => (
+            <option key={p.id} value={p.id}>{p.name}</option>
+          ))}
+        </Select>
+      </div>
+      <Textarea
+        label="Descripción"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        rows={2}
+      />
       {error && <p className="text-sm text-red-600">{error}</p>}
-      <div className="flex justify-end gap-3">
-        <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 cursor-pointer">Cancelar</button>
-        <button type="submit" disabled={loading} className="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 disabled:opacity-50 cursor-pointer">
-          {loading ? 'Guardando...' : isEditing ? 'Actualizar' : 'Guardar'}
-        </button>
+      <div className="flex justify-end gap-3 pt-1">
+        <Button type="button" variant="ghost" onClick={onClose}>Cancelar</Button>
+        <Button type="submit" loading={loading}>
+          {isEditing ? 'Actualizar' : 'Guardar'}
+        </Button>
       </div>
     </form>
   );
