@@ -66,5 +66,7 @@ export function exportPdf(projectId: string, fromDate?: string, toDate?: string)
   const params = new URLSearchParams({ projectId });
   if (fromDate) params.set('fromDate', fromDate);
   if (toDate) params.set('toDate', toDate);
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  if (tz) params.set('tz', tz);
   return api.getBlob(`/time-records/export/pdf?${params.toString()}`);
 }

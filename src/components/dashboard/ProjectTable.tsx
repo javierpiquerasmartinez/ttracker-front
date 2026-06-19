@@ -3,7 +3,7 @@ import { exportPdf } from '../../services/timeRecords.service';
 import { useToast } from '../../context/ToastContext';
 import { Card } from '../common/ui/Card';
 import { EmptyState } from '../common/ui/EmptyState';
-import { formatMinutes } from '../../utils/date';
+import { formatHours } from '../../utils/date';
 import type { DashboardProject } from '../../types';
 
 interface Props {
@@ -57,7 +57,7 @@ export function ProjectTable({ projects, fromDate, toDate }: Props) {
             >
               <td className="px-6 py-4 text-sm text-gray-600">{p.clientName}</td>
               <td className="px-6 py-4 text-sm font-medium text-gray-900">{p.projectName}</td>
-              <td className="px-6 py-4 text-sm text-right text-gray-900 font-mono tabular-nums">{formatMinutes(p.minutes)}</td>
+              <td className="px-6 py-4 text-sm text-right text-gray-900 font-mono tabular-nums">{formatHours(p.minutes)}</td>
               <td className="px-6 py-4 text-sm text-right text-gray-400 tabular-nums">{p.percentage.toFixed(1)}%</td>
               <td className="px-6 py-4 text-sm text-right whitespace-nowrap">
                 <button

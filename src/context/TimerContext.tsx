@@ -34,7 +34,7 @@ export function TimerProvider({ children }: { children: ReactNode }) {
 
   const startInterval = useCallback((record: TimeRecord) => {
     clearTimerInterval();
-    const startDate = new Date(`${record.date}T${record.start_time}`);
+    const startDate = new Date(`${record.date}T${record.start_time}Z`);
     intervalRef.current = setInterval(() => {
       const now = new Date();
       const elapsed = Math.floor((now.getTime() - startDate.getTime()) / 1000);

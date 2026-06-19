@@ -5,7 +5,7 @@ import { getProjects } from '../../services/projects.service';
 import { createManual, updateTimeRecord } from '../../services/timeRecords.service';
 import { Button } from '../common/ui/Button';
 import { Input, Select, Textarea } from '../common/ui/Input';
-import { getTodayStr, formatHours } from '../../utils/date';
+import { getTodayStr, formatHours, utcToLocalTime, localToUtcTime } from '../../utils/date';
 import type { Client, Project, TimeRecord } from '../../types';
 
 interface Props {
@@ -23,8 +23,12 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
   const [clientId, setClientId] = useState('');
   const [projectId, setProjectId] = useState(record?.project_id || '');
   const [date, setDate] = useState(record?.date || getTodayStr());
-  const [startTime, setStartTime] = useState(record?.start_time?.substring(0, 5) || '09:00');
-  const [endTime, setEndTime] = useState(record?.end_time?.substring(0, 5) || '10:00');
+  const [startTime, setStartTime] = useState(
+    record ? utcToLocalTime(record.start_time, record.date) : '09:00',
+  );
+  const [endTime, setEndTime] = useState(
+    record ? utcToLocalTime(record.end_time, record.date) : '10:00',
+  );
   const [description, setDescription] = useState(record?.description || '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -67,8 +71,8 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
       const data = {
         project_id: projectId,
         date,
-        start_time: startTime + ':00',
-        end_time: endTime + ':00',
+        start_time: localToUtcTime(startTime + ':00', date),
+        end_time: localToUtcTime(endTime + ':00', date),
         description: description.trim() || undefined,
       };
 

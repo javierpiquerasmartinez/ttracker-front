@@ -31,7 +31,18 @@ export function formatDate(date: string): string {
   return format(new Date(date + 'T00:00:00'), 'dd MMM yyyy', { locale: es });
 }
 
-export function formatTime(time: string): string {
+export function utcToLocalTime(utcTime: string, dateStr: string): string {
+  const date = new Date(`${dateStr}T${utcTime}Z`);
+  return format(date, 'HH:mm');
+}
+
+export function localToUtcTime(localTime: string, dateStr: string): string {
+  const date = new Date(`${dateStr}T${localTime}`);
+  return date.toISOString().split('T')[1].split('.')[0];
+}
+
+export function formatTime(time: string, dateStr?: string): string {
+  if (dateStr) return utcToLocalTime(time, dateStr);
   return time.substring(0, 5);
 }
 
