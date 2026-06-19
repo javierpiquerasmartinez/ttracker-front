@@ -10,11 +10,13 @@ import { Button } from '../components/common/ui/Button';
 import { Badge } from '../components/common/ui/Badge';
 import { EmptyState } from '../components/common/ui/EmptyState';
 import { useToast } from '../context/ToastContext';
+import { useConfirm } from '../context/ConfirmContext';
 import { formatDate, formatHours } from '../utils/date';
 import type { TimeRecord, Client, Project } from '../types';
 
 export function TimeRecordsPage() {
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
   const [records, setRecords] = useState<TimeRecord[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -67,7 +69,13 @@ export function TimeRecordsPage() {
   useEffect(() => { loadRecords(1); }, [filterClientId, filterProjectId]);
 
   const handleDelete = async (record: TimeRecord) => {
-    if (!window.confirm('¿Eliminar este registro?')) return;
+    const ok = await confirm({
+      title: 'Eliminar registro',
+      message: '¿Eliminar este registro? Esta acción no se puede deshacer.',
+      confirmLabel: 'Eliminar',
+      variant: 'danger',
+    });
+    if (!ok) return;
     try {
       await deleteTimeRecord(record.id);
       addToast('Registro eliminado', 'success');
@@ -153,7 +161,7 @@ export function TimeRecordsPage() {
                         {r.record_type === 'automatic' ? 'Auto' : 'Manual'}
                       </Badge>
                     </td>
-                    <td className="px-6 py-3 text-sm text-right text-gray-900 font-mono tabular-nums">{formatHours(r.duration_minutes)}</td>
+                    <td className="px-6 py-3 text-sm text-right text-gray-900 font-mono tabular-nums whitespace-nowrap">{formatHours(r.duration_minutes)}</td>
                     <td className="px-6 py-3 text-sm text-right space-x-3 whitespace-nowrap">
                       <button onClick={() => setEditingRecord(r)} className="text-brand-600 hover:text-brand-700 cursor-pointer">Editar</button>
                       <button onClick={() => handleDelete(r)} className="text-red-600 hover:text-red-700 cursor-pointer">Eliminar</button>

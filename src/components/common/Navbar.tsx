@@ -1,5 +1,6 @@
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useConfirm } from '../../context/ConfirmContext';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 const navItems = [
@@ -12,10 +13,17 @@ const navItems = [
 export function Navbar() {
   const { user, logout } = useAuth();
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    if (window.confirm('¿Estás seguro de cerrar sesión?')) {
+  const handleLogout = async () => {
+    const ok = await confirm({
+      title: 'Cerrar sesión',
+      message: '¿Estás seguro de cerrar sesión?',
+      confirmLabel: 'Cerrar sesión',
+      variant: 'primary',
+    });
+    if (ok) {
       logout();
       addToast('Sesión cerrada', 'info');
       navigate('/login');

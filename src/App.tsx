@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { TimerProvider } from './context/TimerContext';
 import { ToastProvider } from './context/ToastContext';
+import { ConfirmProvider } from './context/ConfirmContext';
 import { ToastContainer } from './components/common/ToastContainer';
 import { ProtectedRoute } from './components/common/ProtectedRoute';
 import { Navbar } from './components/common/Navbar';
@@ -28,8 +29,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <ToastProvider>
-        <AuthProvider>
-          <TimerProvider>
+        <ConfirmProvider>
+          <AuthProvider>
+            <TimerProvider>
             <Routes>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
@@ -47,8 +49,9 @@ export default function App() {
                 <Route path="/records" element={<TimeRecordsPage />} />
               </Route>
             </Routes>
-          </TimerProvider>
-        </AuthProvider>
+            </TimerProvider>
+          </AuthProvider>
+        </ConfirmProvider>
       </ToastProvider>
     </BrowserRouter>
   );
