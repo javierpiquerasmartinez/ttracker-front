@@ -10,8 +10,8 @@ export function LoginPage() {
   const { user, login, error } = useAuth();
   const { addToast } = useToast();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('admin@slott.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   if (user) return <Navigate to="/" replace />;
@@ -53,7 +53,7 @@ export function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="admin@slott.com"
+              placeholder="tu@email.com"
             />
             <Input
               type="password"
