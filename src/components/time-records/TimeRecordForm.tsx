@@ -5,7 +5,7 @@ import { getProjects } from '../../services/projects.service';
 import { createManual, updateTimeRecord } from '../../services/timeRecords.service';
 import { Button } from '../common/ui/Button';
 import { Input, Select, Textarea } from '../common/ui/Input';
-import { getTodayStr, formatHours, utcToLocalTime, localToUtcTime } from '../../utils/date';
+import { getTodayStr, formatHours, utcToLocalTime, utcToLocalDate, localToUtcTime } from '../../utils/date';
 import type { Client, Project, TimeRecord } from '../../types';
 
 interface Props {
@@ -22,7 +22,9 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [clientId, setClientId] = useState('');
   const [projectId, setProjectId] = useState(record?.project_id || '');
-  const [date, setDate] = useState(record?.date || getTodayStr());
+  const [date, setDate] = useState(
+    record ? utcToLocalDate(record.start_time, record.date) : getTodayStr(),
+  );
   const [startTime, setStartTime] = useState(
     record ? utcToLocalTime(record.start_time, record.date) : '09:00',
   );
@@ -68,11 +70,13 @@ export function TimeRecordForm({ record, onSaved, onClose }: Props) {
     setLoading(true);
     setError('');
     try {
+      const startUtc = localToUtcTime(startTime + ':00', date);
+      const endUtc = localToUtcTime(endTime + ':00', date);
       const data = {
         project_id: projectId,
-        date,
-        start_time: localToUtcTime(startTime + ':00', date),
-        end_time: localToUtcTime(endTime + ':00', date),
+        date: startUtc.date,
+        start_time: startUtc.time,
+        end_time: endUtc.time,
         description: description.trim() || undefined,
       };
 

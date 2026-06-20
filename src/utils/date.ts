@@ -36,9 +36,18 @@ export function utcToLocalTime(utcTime: string, dateStr: string): string {
   return format(date, 'HH:mm');
 }
 
-export function localToUtcTime(localTime: string, dateStr: string): string {
+export function localToUtcTime(localTime: string, dateStr: string): { time: string; date: string } {
   const date = new Date(`${dateStr}T${localTime}`);
-  return date.toISOString().split('T')[1].split('.')[0];
+  const iso = date.toISOString();
+  return {
+    time: iso.split('T')[1].split('.')[0],
+    date: iso.split('T')[0],
+  };
+}
+
+export function utcToLocalDate(utcTime: string, dateStr: string): string {
+  const date = new Date(`${dateStr}T${utcTime}Z`);
+  return format(date, 'yyyy-MM-dd');
 }
 
 export function formatTime(time: string, dateStr?: string): string {

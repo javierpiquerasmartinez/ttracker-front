@@ -11,7 +11,7 @@ import { Badge } from '../components/common/ui/Badge';
 import { EmptyState } from '../components/common/ui/EmptyState';
 import { useToast } from '../context/ToastContext';
 import { useConfirm } from '../context/ConfirmContext';
-import { formatDate, formatHours } from '../utils/date';
+import { formatDate, formatHours, utcToLocalDate } from '../utils/date';
 import type { TimeRecord, Client, Project } from '../types';
 
 export function TimeRecordsPage() {
@@ -153,7 +153,7 @@ export function TimeRecordsPage() {
               <tbody className="divide-y divide-gray-100">
                 {records.map((r) => (
                   <tr key={r.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-3 text-sm text-gray-900">{formatDate(r.date)}</td>
+                    <td className="px-6 py-3 text-sm text-gray-900">{formatDate(utcToLocalDate(r.start_time, r.date))}</td>
                     <td className="px-6 py-3 text-sm text-gray-900">{r.project?.name || '-'}</td>
                     <td className="px-6 py-3 text-sm text-gray-500 max-w-xs truncate">{r.description || '-'}</td>
                     <td className="px-6 py-3 text-sm">

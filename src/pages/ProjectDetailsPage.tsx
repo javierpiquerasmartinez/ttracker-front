@@ -12,7 +12,7 @@ import { Badge } from '../components/common/ui/Badge';
 import { EmptyState } from '../components/common/ui/EmptyState';
 import { useToast } from '../context/ToastContext';
 import { useConfirm } from '../context/ConfirmContext';
-import { formatDate, formatHours, formatMinutes } from '../utils/date';
+import { formatDate, formatHours, formatMinutes, utcToLocalDate } from '../utils/date';
 import type { TimeRecord, Project } from '../types';
 
 export function ProjectDetailsPage() {
@@ -121,7 +121,7 @@ export function ProjectDetailsPage() {
             <tbody className="divide-y divide-gray-100">
               {records.map((r) => (
                 <tr key={r.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-3 text-sm text-gray-900">{formatDate(r.date)}</td>
+                  <td className="px-6 py-3 text-sm text-gray-900">{formatDate(utcToLocalDate(r.start_time, r.date))}</td>
                   <td className="px-6 py-3 text-sm text-gray-500 max-w-xs truncate">{r.description || '-'}</td>
                   <td className="px-6 py-3 text-sm">
                     <Badge tone={r.record_type === 'automatic' ? 'brand' : 'amber'}>
