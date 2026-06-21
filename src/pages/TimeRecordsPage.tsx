@@ -9,6 +9,7 @@ import { Card } from '../components/common/ui/Card';
 import { Button } from '../components/common/ui/Button';
 import { Badge } from '../components/common/ui/Badge';
 import { EmptyState } from '../components/common/ui/EmptyState';
+import { Pagination } from '../components/common/ui/Pagination';
 import { useToast } from '../context/ToastContext';
 import { useConfirm } from '../context/ConfirmContext';
 import { formatDate, formatHours, utcToLocalDate } from '../utils/date';
@@ -172,18 +173,7 @@ export function TimeRecordsPage() {
             </table>
           </Card>
 
-          <div className="flex items-center justify-between mt-4">
-            <span className="text-sm text-gray-500">Total: {total} registros</span>
-            <div className="flex gap-2 items-center">
-              <button disabled={page <= 1} onClick={() => loadRecords(page - 1)} className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors">
-                Anterior
-              </button>
-              <span className="px-3 py-1.5 text-sm font-medium text-gray-700">{page}</span>
-              <button disabled={page * 20 >= total} onClick={() => loadRecords(page + 1)} className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors">
-                Siguiente
-              </button>
-            </div>
-          </div>
+          <Pagination page={page} total={total} limit={20} onPageChange={loadRecords} />
         </>
       )}
 
