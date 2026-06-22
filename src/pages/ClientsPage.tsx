@@ -29,7 +29,7 @@ export function ClientsPage() {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6">
       <div className="flex items-center justify-between mb-7">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Clientes</h1>

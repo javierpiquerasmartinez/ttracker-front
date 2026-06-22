@@ -82,7 +82,7 @@ export function ProjectDetailsPage() {
   if (loading) return <Loading />;
   if (!project)
     return (
-      <div className="max-w-5xl mx-auto p-6">
+      <div className="max-w-7xl mx-auto p-6">
         <Card>
           <EmptyState title="Proyecto no encontrado" description="El proyecto que buscas no existe o fue eliminado" />
         </Card>
@@ -90,7 +90,7 @@ export function ProjectDetailsPage() {
     );
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6">
       <button
         onClick={() => navigate('/')}
         className="text-sm text-brand-600 hover:text-brand-700 mb-5 inline-flex items-center gap-1.5 cursor-pointer font-medium transition-colors"
