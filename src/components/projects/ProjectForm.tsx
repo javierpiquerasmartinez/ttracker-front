@@ -52,9 +52,16 @@ export function ProjectForm({ project, onSaved, onClose, preselectedClientId }: 
 
   if (!isEditing && clients.length === 0) {
     return (
-      <div className="text-center py-8">
-        <p className="text-sm text-gray-500 mb-3">Crea un cliente primero para poder crear proyectos</p>
-        <Button variant="ghost" size="sm" onClick={onClose}>Cerrar</Button>
+      <div className="text-center py-10">
+        <div className="mx-auto mb-4 h-12 w-12 rounded-2xl bg-slate-50 ring-1 ring-slate-200/80 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-slate-400">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+          </svg>
+        </div>
+        <p className="text-sm text-slate-500 mb-4">Crea un cliente primero para poder crear proyectos</p>
+        <Button variant="outline" size="sm" onClick={onClose}>
+          Cerrar
+        </Button>
       </div>
     );
   }
@@ -76,8 +83,8 @@ export function ProjectForm({ project, onSaved, onClose, preselectedClientId }: 
       )}
       {isEditing && project?.client && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
-          <div className="px-3 py-2 border border-gray-200 rounded-lg bg-gray-50 text-sm text-gray-600">
+          <label className="block text-xs font-medium text-slate-600 mb-1.5 tracking-wide">Cliente</label>
+          <div className="h-9 px-3 border border-slate-200 rounded-lg bg-slate-50 text-sm text-slate-600 flex items-center">
             {project.client.name}
           </div>
         </div>
@@ -96,9 +103,15 @@ export function ProjectForm({ project, onSaved, onClose, preselectedClientId }: 
         onChange={(e) => setDescription(e.target.value)}
         rows={2}
       />
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <p className="text-sm text-rose-600 bg-rose-50 border border-rose-100 px-3 py-2 rounded-lg">
+          {error}
+        </p>
+      )}
       <div className="flex justify-end gap-3 pt-1">
-        <Button type="button" variant="ghost" onClick={onClose}>Cancelar</Button>
+        <Button type="button" variant="ghost" onClick={onClose}>
+          Cancelar
+        </Button>
         <Button type="submit" loading={loading}>
           {isEditing ? 'Actualizar' : 'Guardar'}
         </Button>

@@ -24,40 +24,53 @@ export function ClientsPage() {
     }
   };
 
-  useEffect(() => { loadClients(); }, []);
+  useEffect(() => {
+    loadClients();
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Clientes</h1>
-        <Button onClick={() => setShowForm(true)}>Crear Cliente</Button>
+      <div className="flex items-center justify-between mb-7">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Clientes</h1>
+          <p className="text-sm text-slate-500 mt-0.5">Gestiona los clientes de tus proyectos</p>
+        </div>
+        <Button onClick={() => setShowForm(true)}>
+          <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+          </svg>
+          Crear Cliente
+        </Button>
       </div>
 
       {loading ? (
         <Loading />
       ) : clients.length === 0 ? (
-        <Card className="py-2">
+        <Card>
           <EmptyState title="No hay clientes" description="Crea tu primer cliente para empezar" />
         </Card>
       ) : (
         <Card className="overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50/80">
+            <thead className="bg-slate-50/70 border-b border-slate-200/80">
               <tr>
-                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Creado</th>
-                <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Nombre</th>
+                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Descripción</th>
+                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Creado</th>
+                <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Acciones</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100">
               {clients.map((c) => (
-                <tr key={c.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">{c.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">{c.description || '-'}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">{formatDate(c.created_at.split('T')[0])}</td>
+                <tr key={c.id} className="hover:bg-slate-50/60 transition-colors duration-150">
+                  <td className="px-6 py-4 text-sm font-medium text-slate-900">{c.name}</td>
+                  <td className="px-6 py-4 text-sm text-slate-500">{c.description || '-'}</td>
+                  <td className="px-6 py-4 text-sm text-slate-500">{formatDate(c.created_at.split('T')[0])}</td>
                   <td className="px-6 py-4 text-sm text-right">
-                    <button onClick={() => setEditingClient(c)} className="text-brand-600 hover:text-brand-700 font-medium cursor-pointer">
+                    <button
+                      onClick={() => setEditingClient(c)}
+                      className="text-brand-600 hover:text-brand-700 font-medium cursor-pointer transition-colors"
+                    >
                       Editar
                     </button>
                   </td>

@@ -15,16 +15,70 @@
   --color-brand-900: #5820b0;
   --color-brand-950: #2d0a6b;
 
-  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
-  --shadow-pop: 0 10px 30px -5px rgb(0 0 0 / 0.15), 0 4px 12px -4px rgb(0 0 0 / 0.08);
+  --color-canvas: #f8f9fc;
+
+  --shadow-xs: 0 1px 2px 0 rgb(15 23 42 / 0.04);
+  --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 1px 3px 0 rgb(15 23 42 / 0.05);
+  --shadow-pop: 0 12px 32px -8px rgb(15 23 42 / 0.18), 0 4px 12px -4px rgb(15 23 42 / 0.08);
+  --shadow-lg: 0 24px 56px -12px rgb(15 23 42 / 0.22), 0 8px 20px -8px rgb(15 23 42 / 0.10);
+  --shadow-glow: 0 0 0 1px rgb(134 59 255 / 0.12), 0 8px 24px -8px rgb(134 59 255 / 0.25);
+
+  --animate-fade-in: fade-in 0.18s ease-out;
+  --animate-scale-in: scale-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-in-top: slide-in-top 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-pulse-soft: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-in-top {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 html {
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-canvas);
+  letter-spacing: -0.011em;
 }
 
 ::selection {
   background-color: var(--color-brand-200);
-  color: var(--color-brand-900);
+  color: var(--color-brand-950);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(148 163 184 / 0.3);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(148 163 184 / 0.5);
+  background-clip: content-box;
 }

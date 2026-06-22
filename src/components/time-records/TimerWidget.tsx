@@ -22,16 +22,19 @@ export function TimerWidget() {
   if (timer.isRunning && timer.activeRecord) {
     const elapsed = formatSeconds(timer.elapsed);
     return (
-      <div className="flex items-center gap-3 bg-green-50 border border-green-200 rounded-lg pl-3 pr-1.5 py-1.5">
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+      <div className="flex items-center gap-2.5 bg-emerald-50 border border-emerald-200/70 rounded-lg pl-3 pr-1.5 py-1.5 shadow-xs">
+        <span className="relative flex h-2 w-2 shrink-0">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
         </span>
-        <span className="text-sm text-green-700 font-mono font-bold tabular-nums">{elapsed}</span>
-        <span className="text-sm text-green-600 hidden sm:inline">
+        <span className="text-sm text-emerald-700 font-mono font-bold tabular-nums">{elapsed}</span>
+        <span className="text-sm text-emerald-600/80 hidden sm:inline max-w-[160px] truncate">
           {timer.activeRecord.project?.name || 'Proyecto'}
         </span>
-        <Button variant="danger" size="sm" onClick={handleStop} className="ml-1">
+        <Button variant="danger" size="sm" onClick={handleStop} className="ml-0.5">
+          <svg viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3">
+            <rect x="6" y="6" width="8" height="8" rx="1.5" />
+          </svg>
           Stop
         </Button>
       </div>
@@ -41,7 +44,10 @@ export function TimerWidget() {
   return (
     <>
       <Button variant="success" onClick={() => setShowPlay(true)}>
-        <span className="text-xs">▶</span> Play
+        <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+          <path d="M6.5 4.5a1 1 0 011.7-.7l8 5.5a1 1 0 010 1.7l-8 5.5a1 1 0 01-1.7-.7V4.5z" />
+        </svg>
+        Play
       </Button>
       <Modal open={showPlay} onClose={() => setShowPlay(false)} title="Iniciar Registro">
         <PlayModal onClose={() => setShowPlay(false)} />

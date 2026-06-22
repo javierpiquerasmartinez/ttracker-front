@@ -31,23 +31,26 @@ export function Navbar() {
   };
 
   return (
-    <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-30">
+    <nav className="bg-white/75 backdrop-blur-xl border-b border-slate-200/70 sticky top-0 z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link to="/" className="shrink-0 rounded-xl bg-brand-50 p-1.5 transition-colors hover:bg-brand-100">
-            <img src="/slott-mark.png" alt="Slott" className="h-9 w-9" />
+          <Link
+            to="/"
+            className="shrink-0 rounded-xl hover:opacity-90 transition-opacity"
+          >
+            <img src="/slott-mark.png" alt="Slott" className="h-8 w-8" />
           </Link>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  `px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-150 ${
                     isActive
                       ? 'bg-brand-50 text-brand-700'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100/70'
                   }`
                 }
               >
@@ -57,15 +60,16 @@ export function Navbar() {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-semibold">
+          <div className="hidden sm:flex items-center gap-2.5">
+            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white flex items-center justify-center text-xs font-semibold shadow-xs shadow-brand-600/30">
               {(user?.email ?? '?')[0]?.toUpperCase()}
             </div>
-            <span className="text-sm text-gray-600">{user?.email}</span>
+            <span className="text-sm text-slate-500">{user?.email}</span>
           </div>
+          <div className="w-px h-5 bg-slate-200 hidden sm:block" />
           <button
             onClick={handleLogout}
-            className="text-sm text-gray-500 hover:text-red-600 font-medium cursor-pointer transition-colors"
+            className="text-sm text-slate-500 hover:text-rose-600 font-medium cursor-pointer transition-colors"
           >
             Salir
           </button>

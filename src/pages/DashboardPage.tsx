@@ -22,9 +22,8 @@ export function DashboardPage() {
   const loadDashboard = useCallback(async () => {
     setLoading(true);
     try {
-      const { from, to } = period === 'custom'
-        ? { from: customFrom, to: customTo }
-        : getPeriodDates(period);
+      const { from, to } =
+        period === 'custom' ? { from: customFrom, to: customTo } : getPeriodDates(period);
       const summary = await getDashboard(from, to);
       setData(summary);
     } finally {
@@ -32,17 +31,30 @@ export function DashboardPage() {
     }
   }, [period, customFrom, customTo]);
 
-  useEffect(() => { loadDashboard(); }, [loadDashboard]);
+  useEffect(() => {
+    loadDashboard();
+  }, [loadDashboard]);
 
   const activeFrom = period === 'custom' ? customFrom : getPeriodDates(period).from;
   const activeTo = period === 'custom' ? customTo : getPeriodDates(period).to;
 
   return (
     <div className="max-w-7xl mx-auto p-6">
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+      <div className="flex items-center justify-between mb-7 flex-wrap gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Dashboard</h1>
+          <p className="text-sm text-slate-500 mt-0.5">Resumen de tu tiempo trabajado</p>
+        </div>
         <div className="flex items-center gap-3">
-          <Button onClick={() => setShowManualForm(true)}>+ Registro Manual</Button>
+          <Button
+            variant="outline"
+            onClick={() => setShowManualForm(true)}
+          >
+            <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+              <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+            </svg>
+            Registro Manual
+          </Button>
           <TimerWidget />
         </div>
       </div>

@@ -8,16 +8,18 @@ interface BadgeProps {
 }
 
 const tones: Record<Tone, string> = {
-  brand: 'bg-brand-100 text-brand-700',
-  amber: 'bg-amber-100 text-amber-700',
-  green: 'bg-green-100 text-green-700',
-  red: 'bg-red-100 text-red-700',
-  gray: 'bg-gray-100 text-gray-600',
+  brand: 'bg-brand-50 text-brand-700 ring-brand-200/60',
+  amber: 'bg-amber-50 text-amber-700 ring-amber-200/60',
+  green: 'bg-emerald-50 text-emerald-700 ring-emerald-200/60',
+  red: 'bg-rose-50 text-rose-700 ring-rose-200/60',
+  gray: 'bg-slate-100 text-slate-600 ring-slate-200/60',
 };
 
 export function Badge({ tone = 'gray', children }: BadgeProps) {
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${tones[tone]}`}>
+    <span
+      className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium ring-1 ring-inset ${tones[tone]}`}
+    >
       {children}
     </span>
   );

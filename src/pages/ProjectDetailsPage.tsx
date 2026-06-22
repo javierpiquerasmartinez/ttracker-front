@@ -40,7 +40,9 @@ export function ProjectDetailsPage() {
     }
   };
 
-  useEffect(() => { loadData(); }, [id]);
+  useEffect(() => {
+    loadData();
+  }, [id]);
 
   const handleDelete = async (record: TimeRecord) => {
     const ok = await confirm({
@@ -78,60 +80,95 @@ export function ProjectDetailsPage() {
   const totalMinutes = records.reduce((sum, r) => sum + r.duration_minutes, 0);
 
   if (loading) return <Loading />;
-  if (!project) return <div className="p-6 text-center text-gray-500">Proyecto no encontrado</div>;
+  if (!project)
+    return (
+      <div className="max-w-5xl mx-auto p-6">
+        <Card>
+          <EmptyState title="Proyecto no encontrado" description="El proyecto que buscas no existe o fue eliminado" />
+        </Card>
+      </div>
+    );
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <button onClick={() => navigate('/')} className="text-sm text-brand-600 hover:text-brand-700 mb-4 inline-block cursor-pointer font-medium">
-        &larr; Volver al Dashboard
+      <button
+        onClick={() => navigate('/')}
+        className="text-sm text-brand-600 hover:text-brand-700 mb-5 inline-flex items-center gap-1.5 cursor-pointer font-medium transition-colors"
+      >
+        <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+          <path fillRule="evenodd" d="M12.7 4.3a1 1 0 010 1.4L8.4 10l4.3 4.3a1 1 0 11-1.4 1.4l-5-5a1 1 0 010-1.4l5-5a1 1 0 011.4 0z" clipRule="evenodd" />
+        </svg>
+        Volver al Dashboard
       </button>
 
-      <Card className="p-6 mb-6">
+      <Card className="p-6 mb-6 overflow-hidden relative">
+        <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-brand-500 to-brand-700" />
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">{project.name}</h1>
-            <p className="text-sm text-gray-500 mt-0.5">Cliente: {project.client?.name || 'N/A'}</p>
+            <h1 className="text-xl font-bold text-slate-900 tracking-tight">{project.name}</h1>
+            <p className="text-sm text-slate-500 mt-1">
+              Cliente: <span className="text-slate-700 font-medium">{project.client?.name || 'N/A'}</span>
+            </p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-gray-900 tabular-nums">{formatMinutes(totalMinutes)}</p>
-            <p className="text-sm text-gray-500">Total</p>
+            <p className="text-3xl font-bold text-slate-900 tabular-nums tracking-tight">
+              {formatMinutes(totalMinutes)}
+            </p>
+            <p className="text-xs text-slate-500 uppercase tracking-wider font-medium">Total</p>
           </div>
         </div>
-        <div className="mt-4">
-          <Button variant="success" onClick={handleExport}>Exportar PDF</Button>
+        <div className="mt-5 pt-5 border-t border-slate-100">
+          <Button variant="success" onClick={handleExport}>
+            <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.3 9.3a1 1 0 011.4 0L9 10.6V3a1 1 0 112 0v7.6l1.3-1.3a1 1 0 111.4 1.4l-3 3a1 1 0 01-1.4 0l-3-3a1 1 0 010-1.4z" clipRule="evenodd" />
+            </svg>
+            Exportar PDF
+          </Button>
         </div>
       </Card>
 
       {records.length === 0 ? (
-        <Card className="py-2">
+        <Card>
           <EmptyState title="Sin registros" description="No hay registros para este proyecto" />
         </Card>
       ) : (
         <Card className="overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50/80">
+            <thead className="bg-slate-50/70 border-b border-slate-200/80">
               <tr>
-                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
-                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-                <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
-                <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Horas</th>
-                <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Fecha</th>
+                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Descripción</th>
+                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Tipo</th>
+                <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Horas</th>
+                <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Acciones</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100">
               {records.map((r) => (
-                <tr key={r.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-3 text-sm text-gray-900">{formatDate(utcToLocalDate(r.start_time, r.date))}</td>
-                  <td className="px-6 py-3 text-sm text-gray-500 max-w-xs truncate">{r.description || '-'}</td>
+                <tr key={r.id} className="hover:bg-slate-50/60 transition-colors duration-150">
+                  <td className="px-6 py-3 text-sm text-slate-900">{formatDate(utcToLocalDate(r.start_time, r.date))}</td>
+                  <td className="px-6 py-3 text-sm text-slate-500 max-w-xs truncate">{r.description || '-'}</td>
                   <td className="px-6 py-3 text-sm">
                     <Badge tone={r.record_type === 'automatic' ? 'brand' : 'amber'}>
                       {r.record_type === 'automatic' ? 'Auto' : 'Manual'}
                     </Badge>
                   </td>
-                  <td className="px-6 py-3 text-sm text-right text-gray-900 font-mono tabular-nums whitespace-nowrap">{formatHours(r.duration_minutes)}</td>
+                  <td className="px-6 py-3 text-sm text-right text-slate-900 font-mono tabular-nums whitespace-nowrap">
+                    {formatHours(r.duration_minutes)}
+                  </td>
                   <td className="px-6 py-3 text-sm text-right space-x-3 whitespace-nowrap">
-                    <button onClick={() => setEditingRecord(r)} className="text-brand-600 hover:text-brand-700 cursor-pointer">Editar</button>
-                    <button onClick={() => handleDelete(r)} className="text-red-600 hover:text-red-700 cursor-pointer">Eliminar</button>
+                    <button
+                      onClick={() => setEditingRecord(r)}
+                      className="text-brand-600 hover:text-brand-700 cursor-pointer transition-colors"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => handleDelete(r)}
+                      className="text-rose-600 hover:text-rose-700 cursor-pointer transition-colors"
+                    >
+                      Eliminar
+                    </button>
                   </td>
                 </tr>
               ))}

@@ -67,7 +67,9 @@ export function TimeRecordsPage() {
     setFilterProjectId('');
   }, [filterClientId]);
 
-  useEffect(() => { loadRecords(1); }, [filterClientId, filterProjectId]);
+  useEffect(() => {
+    loadRecords(1);
+  }, [filterClientId, filterProjectId]);
 
   const handleDelete = async (record: TimeRecord) => {
     const ok = await confirm({
@@ -90,82 +92,137 @@ export function TimeRecordsPage() {
     loadRecords(1);
   };
 
-  const filterInputClass = 'px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors';
+  const filterInputClass =
+    'h-9 px-3 border border-slate-200 rounded-lg text-sm bg-white text-slate-900 outline-none transition-all duration-150 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20';
 
   return (
     <div className="max-w-7xl mx-auto p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Registros de Tiempo</h1>
-        <Button onClick={() => setShowManualForm(true)}>+ Registro Manual</Button>
+      <div className="flex items-center justify-between mb-7">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Registros de Tiempo</h1>
+          <p className="text-sm text-slate-500 mt-0.5">Historial completo de horas trabajadas</p>
+        </div>
+        <Button onClick={() => setShowManualForm(true)}>
+          <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+          </svg>
+          Registro Manual
+        </Button>
       </div>
 
       <Card className="p-4 mb-4">
         <div className="flex flex-wrap gap-3 items-end">
           <div>
-            <label className="block text-xs text-gray-500 mb-1">Cliente</label>
-            <select value={filterClientId} onChange={(e) => setFilterClientId(e.target.value)} className={filterInputClass}>
+            <label className="block text-xs text-slate-500 mb-1.5 font-medium">Cliente</label>
+            <select
+              value={filterClientId}
+              onChange={(e) => setFilterClientId(e.target.value)}
+              className={filterInputClass}
+            >
               <option value="">Todos</option>
-              {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+              {clients.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
             </select>
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">Proyecto</label>
-            <select value={filterProjectId} onChange={(e) => setFilterProjectId(e.target.value)} className={filterInputClass}>
+            <label className="block text-xs text-slate-500 mb-1.5 font-medium">Proyecto</label>
+            <select
+              value={filterProjectId}
+              onChange={(e) => setFilterProjectId(e.target.value)}
+              className={filterInputClass}
+            >
               <option value="">Todos</option>
-              {projects.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+              {projects.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name}
+                </option>
+              ))}
             </select>
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">Desde</label>
-            <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} className={filterInputClass} />
+            <label className="block text-xs text-slate-500 mb-1.5 font-medium">Desde</label>
+            <input
+              type="date"
+              value={filterFrom}
+              onChange={(e) => setFilterFrom(e.target.value)}
+              className={filterInputClass}
+            />
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">Hasta</label>
-            <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} className={filterInputClass} />
+            <label className="block text-xs text-slate-500 mb-1.5 font-medium">Hasta</label>
+            <input
+              type="date"
+              value={filterTo}
+              onChange={(e) => setFilterTo(e.target.value)}
+              className={filterInputClass}
+            />
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">Buscar</label>
-            <input type="text" placeholder="Descripción..." value={search} onChange={(e) => setSearch(e.target.value)} className={`${filterInputClass} w-40`} />
+            <label className="block text-xs text-slate-500 mb-1.5 font-medium">Buscar</label>
+            <input
+              type="text"
+              placeholder="Descripción..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className={`${filterInputClass} w-44`}
+            />
           </div>
-          <Button variant="dark" onClick={handleApplyFilters}>Filtrar</Button>
+          <Button variant="dark" onClick={handleApplyFilters}>
+            Filtrar
+          </Button>
         </div>
       </Card>
 
       {loading ? (
         <Loading />
       ) : records.length === 0 ? (
-        <Card className="py-2">
+        <Card>
           <EmptyState title="Sin registros" description="No hay registros que coincidan con los filtros" />
         </Card>
       ) : (
         <>
           <Card className="overflow-hidden">
             <table className="w-full">
-              <thead className="bg-gray-50/80">
+              <thead className="bg-slate-50/70 border-b border-slate-200/80">
                 <tr>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Proyecto</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
-                  <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Horas</th>
-                  <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                  <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Fecha</th>
+                  <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Proyecto</th>
+                  <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Descripción</th>
+                  <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Tipo</th>
+                  <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Horas</th>
+                  <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {records.map((r) => (
-                  <tr key={r.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-3 text-sm text-gray-900">{formatDate(utcToLocalDate(r.start_time, r.date))}</td>
-                    <td className="px-6 py-3 text-sm text-gray-900">{r.project?.name || '-'}</td>
-                    <td className="px-6 py-3 text-sm text-gray-500 max-w-xs truncate">{r.description || '-'}</td>
+                  <tr key={r.id} className="hover:bg-slate-50/60 transition-colors duration-150">
+                    <td className="px-6 py-3 text-sm text-slate-900">{formatDate(utcToLocalDate(r.start_time, r.date))}</td>
+                    <td className="px-6 py-3 text-sm text-slate-900">{r.project?.name || '-'}</td>
+                    <td className="px-6 py-3 text-sm text-slate-500 max-w-xs truncate">{r.description || '-'}</td>
                     <td className="px-6 py-3 text-sm">
                       <Badge tone={r.record_type === 'automatic' ? 'brand' : 'amber'}>
                         {r.record_type === 'automatic' ? 'Auto' : 'Manual'}
                       </Badge>
                     </td>
-                    <td className="px-6 py-3 text-sm text-right text-gray-900 font-mono tabular-nums whitespace-nowrap">{formatHours(r.duration_minutes)}</td>
+                    <td className="px-6 py-3 text-sm text-right text-slate-900 font-mono tabular-nums whitespace-nowrap">
+                      {formatHours(r.duration_minutes)}
+                    </td>
                     <td className="px-6 py-3 text-sm text-right space-x-3 whitespace-nowrap">
-                      <button onClick={() => setEditingRecord(r)} className="text-brand-600 hover:text-brand-700 cursor-pointer">Editar</button>
-                      <button onClick={() => handleDelete(r)} className="text-red-600 hover:text-red-700 cursor-pointer">Eliminar</button>
+                      <button
+                        onClick={() => setEditingRecord(r)}
+                        className="text-brand-600 hover:text-brand-700 cursor-pointer transition-colors"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        onClick={() => handleDelete(r)}
+                        className="text-rose-600 hover:text-rose-700 cursor-pointer transition-colors"
+                      >
+                        Eliminar
+                      </button>
                     </td>
                   </tr>
                 ))}

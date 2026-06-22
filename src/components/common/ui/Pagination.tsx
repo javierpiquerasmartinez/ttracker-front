@@ -40,13 +40,15 @@ export function Pagination({ page, total, limit, onPageChange }: PaginationProps
     return pages;
   };
 
-  const btnBase = 'px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors';
-  const btnActive = 'px-3 py-1.5 text-sm border border-brand-500 bg-brand-500 text-white rounded-lg cursor-default';
+  const btnBase =
+    'h-8 min-w-8 px-2.5 text-sm border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all duration-150';
+  const btnActive =
+    'h-8 min-w-8 px-2.5 text-sm border-brand-600 bg-brand-600 text-white rounded-lg cursor-default shadow-xs shadow-brand-600/20';
 
   return (
-    <div className="flex items-center justify-between mt-4">
-      <span className="text-sm text-gray-500">
-        Total: {total} registros
+    <div className="flex items-center justify-between mt-5">
+      <span className="text-sm text-slate-500">
+        Total: <span className="font-medium text-slate-700">{total}</span> registros
       </span>
       <div className="flex gap-1 items-center">
         <button
@@ -68,7 +70,7 @@ export function Pagination({ page, total, limit, onPageChange }: PaginationProps
 
         {getPages().map((p, i) =>
           p === '...' ? (
-            <span key={`ellipsis-${i}`} className="px-2 py-1.5 text-sm text-gray-400">
+            <span key={`ellipsis-${i}`} className="px-1.5 text-sm text-slate-400">
               ...
             </span>
           ) : (
@@ -80,7 +82,7 @@ export function Pagination({ page, total, limit, onPageChange }: PaginationProps
             >
               {p}
             </button>
-          )
+          ),
         )}
 
         <button

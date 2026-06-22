@@ -83,9 +83,15 @@ export function PlayModal({ onClose }: Props) {
         rows={2}
         placeholder="ej: Implementar login"
       />
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <p className="text-sm text-rose-600 bg-rose-50 border border-rose-100 px-3 py-2 rounded-lg">
+          {error}
+        </p>
+      )}
       <div className="flex justify-end gap-3 pt-1">
-        <Button type="button" variant="ghost" onClick={onClose}>Cancelar</Button>
+        <Button type="button" variant="ghost" onClick={onClose}>
+          Cancelar
+        </Button>
         <Button type="submit" variant="success" loading={loading} disabled={!projectId}>
           Iniciar
         </Button>
