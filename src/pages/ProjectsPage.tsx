@@ -64,18 +64,19 @@ export function ProjectsPage() {
       </div>
 
       <div className="flex gap-3 mb-4 flex-wrap">
-        <Select
-          value={filterClientId}
-          onChange={(e) => setFilterClientId(e.target.value)}
-          className="max-w-[200px]"
-        >
-          <option value="">Todos los clientes</option>
-          {clients.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </Select>
+        <div className="min-w-[180px] max-w-[200px]">
+          <Select
+            value={filterClientId}
+            onChange={(e) => setFilterClientId(e.target.value)}
+          >
+            <option value="">Todos los clientes</option>
+            {clients.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </Select>
+        </div>
         <div className="relative flex-1 max-w-xs">
           <svg
             xmlns="http://www.w3.org/2000/svg"

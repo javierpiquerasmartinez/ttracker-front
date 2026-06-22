@@ -10,6 +10,7 @@ import { Button } from '../components/common/ui/Button';
 import { Badge } from '../components/common/ui/Badge';
 import { EmptyState } from '../components/common/ui/EmptyState';
 import { Pagination } from '../components/common/ui/Pagination';
+import { Select } from '../components/common/ui/Input';
 import { useToast } from '../context/ToastContext';
 import { useConfirm } from '../context/ConfirmContext';
 import { formatDate, formatHours, utcToLocalDate } from '../utils/date';
@@ -112,35 +113,27 @@ export function TimeRecordsPage() {
 
       <Card className="p-4 mb-4">
         <div className="flex flex-wrap gap-3 items-end">
-          <div>
+          <div className="min-w-[180px]">
             <label className="block text-xs text-slate-500 mb-1.5 font-medium">Cliente</label>
-            <select
+            <Select
               value={filterClientId}
               onChange={(e) => setFilterClientId(e.target.value)}
-              className={filterInputClass}
-            >
-              <option value="">Todos</option>
-              {clients.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
+              options={[
+                { value: '', label: 'Todos' },
+                ...clients.map((c) => ({ value: c.id, label: c.name })),
+              ]}
+            />
           </div>
-          <div>
+          <div className="min-w-[180px]">
             <label className="block text-xs text-slate-500 mb-1.5 font-medium">Proyecto</label>
-            <select
+            <Select
               value={filterProjectId}
               onChange={(e) => setFilterProjectId(e.target.value)}
-              className={filterInputClass}
-            >
-              <option value="">Todos</option>
-              {projects.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
+              options={[
+                { value: '', label: 'Todos' },
+                ...projects.map((p) => ({ value: p.id, label: p.name })),
+              ]}
+            />
           </div>
           <div>
             <label className="block text-xs text-slate-500 mb-1.5 font-medium">Desde</label>
