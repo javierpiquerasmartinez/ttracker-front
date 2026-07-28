@@ -13,6 +13,7 @@ import { ClientsPage } from './pages/ClientsPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { TimeRecordsPage } from './pages/TimeRecordsPage';
 import { ProjectDetailsPage } from './pages/ProjectDetailsPage';
+import { ProfilePage } from './pages/ProfilePage';
 import { Outlet } from 'react-router-dom';
 
 function AppLayout() {
@@ -47,6 +48,7 @@ export default function App() {
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/:id" element={<ProjectDetailsPage />} />
                 <Route path="/records" element={<TimeRecordsPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
               </Route>
             </Routes>
             </TimerProvider>

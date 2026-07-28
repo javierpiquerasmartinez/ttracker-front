@@ -11,6 +11,19 @@ interface RegisterResponse {
   email: string;
   first_name?: string;
   last_name?: string;
+  company_name?: string;
+}
+
+export interface UpdateProfileData {
+  first_name?: string;
+  last_name?: string;
+  company_name?: string;
+}
+
+export interface ChangePasswordData {
+  current_password: string;
+  new_password: string;
+  confirm_password: string;
 }
 
 export async function login(email: string, password: string): Promise<User> {
@@ -30,6 +43,16 @@ export async function register(data: {
 
 export async function getMe(): Promise<User> {
   return api.get<User>('/auth/me');
+}
+
+export async function updateProfile(data: UpdateProfileData): Promise<User> {
+  return api.patch<User>('/auth/me', data);
+}
+
+export async function changePassword(
+  data: ChangePasswordData,
+): Promise<{ message: string }> {
+  return api.post<{ message: string }>('/auth/change-password', data);
 }
 
 export function logout() {

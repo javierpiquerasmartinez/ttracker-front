@@ -62,11 +62,28 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-2.5">
             <div className="h-8 w-8 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white flex items-center justify-center text-xs font-semibold shadow-xs shadow-brand-600/30">
-              {(user?.email ?? '?')[0]?.toUpperCase()}
+              {(user?.first_name ?? user?.email ?? '?')[0]?.toUpperCase()}
             </div>
-            <span className="text-sm text-slate-500">{user?.email}</span>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-slate-700 leading-none">
+                {user?.first_name
+                  ? `${user.first_name} ${user.last_name ?? ''}`.trim()
+                  : user?.email}
+              </span>
+              {user?.company_name && (
+                <span className="text-xs text-slate-400 mt-0.5">
+                  {user.company_name}
+                </span>
+              )}
+            </div>
           </div>
           <div className="w-px h-5 bg-slate-200 hidden sm:block" />
+          <Link
+            to="/profile"
+            className="text-sm text-slate-500 hover:text-brand-600 font-medium cursor-pointer transition-colors"
+          >
+            Mi perfil
+          </Link>
           <button
             onClick={handleLogout}
             className="text-sm text-slate-500 hover:text-rose-600 font-medium cursor-pointer transition-colors"
